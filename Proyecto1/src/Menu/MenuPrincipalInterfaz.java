@@ -4,21 +4,30 @@
  */
 package Menu;
 
+//import Menu.Token;
+import java.awt.Desktop;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+import Menu.NubeList;
 /**
  *
  * @author jacux
  */
-public class MenuPrincipalInterfaz extends javax.swing.JFrame {
 
+
+public class MenuPrincipalInterfaz extends javax.swing.JFrame {
+    
+    //variables globales 
+    //public static LinkedList<Token> listTokens = new LinkedList<>();
     /**
      * Creates new form MenuPrincipalInterfaz
      */
@@ -48,6 +57,8 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Compi1"); // NOI18N
@@ -59,20 +70,30 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Guardar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Guardar como");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Ejecutar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("jButton5");
 
-        jButton6.setText("Compilar");
+        jButton6.setText("Compilar JFlex y Cup");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -91,6 +112,20 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
+        jButton7.setText("Reporte Tokens");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Reporte Errores");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,11 +134,14 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jButton1)
@@ -116,10 +154,12 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addComponent(jButton6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +171,9 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(jButton6)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,8 +183,8 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,6 +192,14 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //Prueba lista token y reporte sin JFlex
+        NubeList.listTokens.add(new Token("arr", "id", 5, 3));
+        NubeList.listTokens.add(new Token("3", "Double", 6, 3));
+        NubeList.listTokens.add(new Token("\"Hola\"", "String", 8, 3));
+        Html_tokens();
+        NubeList.listErrores.add(new Error("Sintactico","Errrrrrr",5,3));
+        NubeList.listErrores.add(new Error("Lexico","Errrrrrr",6,3));
+        Html_Errores();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -190,6 +240,41 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+         try {
+                    // Obtener la ruta del archivo
+                    File archivo = new File("tokens.html").getAbsoluteFile();
+                    
+                    // Verificar si el archivo existe
+                    if (archivo.exists()) {
+                        // Abrir el archivo en el navegador predeterminado
+                        Desktop.getDesktop().browse(archivo.toURI());
+                    } else {
+                        JOptionPane.showMessageDialog(null,"El archivo no existe: " + archivo.getAbsolutePath(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al abrir el archivo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        //------------Codigo enviar text de un jtextarea a otro 
+        String dato_entrada = jTextArea1.getText();
+        //jTextArea2.setText(dato_entrada);
+        //----
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -224,7 +309,173 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
             }
         });
     }
+    @SuppressWarnings("empty-statement")
+    //Reporte de Tokens
+    public static void Html_tokens(){
+        File archivo = new File("resultado.html");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
+            writer.write("<!DOCTYPE html>\n");
+            writer.write("<html lang=\"en\">\n");
+            writer.write("<head>\n");
+            writer.write("    <meta charset=\"UTF-8\">\n");
+            writer.write("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
+            writer.write("    <title>Tabla de Tokens</title>\n");
+            writer.write("    <link  href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n");
+            writer.write("    <style>\n");
+            writer.write("      body {\n");
+            writer.write("          background-color: #f7f9fc;\n");
+            writer.write("      }\n");
+            writer.write("      .table-container {\n");
+            writer.write("          margin: 50px auto;\n");
+            writer.write("          width: 80%;\n");
+            writer.write("          background-color: #e3f2fd;\n");
+            writer.write("          padding: 20px;\n");
+            writer.write("          border-radius: 10px;\n");
+            writer.write("          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);\n");    
+            writer.write("      }\n");
+            writer.write("      .table-responsive {\n");
+            writer.write("          max-height: 400px;\n");
+            writer.write("          overflow-y: auto;\n");
+            writer.write("      }\n");
+            writer.write("      .footer {\n");
+            writer.write("          text-align: center;\n");
+            writer.write("          margin-top: 20px;\n");
+            writer.write("          background-color: #e3f2fd;\n");
+            writer.write("          padding: 10px;\n");
+            writer.write("          border-radius: 10px;\n");
+            writer.write("          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);\n");
+            writer.write("      }\n");
+            writer.write("    </style>\n");
+            writer.write("</head>\n");
+            writer.write("<body>\n");
+            writer.write("  <div class=\"table-container\">\n");
+            writer.write("      <h2 class=\"text-center\">Tabla de Tokens</h2>\n");
+            writer.write("      <div class=\"table-responsive\">\n");
+            writer.write("          <table class=\"table table-bordered\">\n");
+            writer.write("              <thead class=\"table-primary\">\n");
+            writer.write("                  <tr>\n");
+            writer.write("                      <th>#</th>\n");
+            writer.write("                      <th>Lexema</th>\n");
+            writer.write("                      <th>Tipo</th>\n");
+            writer.write("                      <th>Linea</th>\n");
+            writer.write("                      <th>Columna</th>\n");
+            writer.write("                  </tr>\n");
+            writer.write("              </thead>\n");
+            writer.write("              <tbody>\n");
+            //Recorrido for-each en la lista de tokens 
+            int contador =1;
+            for (Token token:NubeList.listTokens){
+            writer.write("                  <tr>\n");
+            writer.write("                      <td>"+contador+" </th>\n");
+            writer.write("                      <td>"+token.getLexema()+" </th>\n");
+            writer.write("                      <td>"+token.getType()+" </th>\n");
+            writer.write("                      <td>"+token.getRow()+" </th>\n");
+            writer.write("                      <td>"+token.getColumn()+" </th>\n");
+            writer.write("                  </tr>\n");
+            contador++;
+            }
+            writer.write("              </tbody>\n");
+            writer.write("          </table>\n");
+            writer.write("      </div>\n");
+            writer.write("  </div>\n");
+            writer.write("  <div class=\"footer\">\n");
+            writer.write("      Josué Antonio Cux Barrientos - 201700688 - Compiladores 1");
+            writer.write("  </div>\n");
+            //writer.write(contenido);
+            writer.write("\n</body>\n");
+            writer.write("</html>");
 
+            JOptionPane.showMessageDialog(null, "Archivo HTML actualizado correctamente.");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al escribir en el archivo HTML: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    
+    }
+    //Reporte de Errores
+    public static void Html_Errores(){
+        File archivo = new File("resulatado1.html");
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
+            writer.write("<!DOCTYPE html>\n");
+            writer.write("<html lang=\"en\">\n");
+            writer.write("<head>\n");
+            writer.write("    <meta charset=\"UTF-8\">\n");
+            writer.write("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
+            writer.write("    <title>Tabla de Errores</title>\n");
+            writer.write("    <link  href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n");
+            writer.write("    <style>\n");
+            writer.write("      body {\n");
+            writer.write("          background-color: #f7f9fc;\n");
+            writer.write("      }\n");
+            writer.write("      .table-container {\n");
+            writer.write("          margin: 50px auto;\n");
+            writer.write("          width: 80%;\n");
+            writer.write("          background-color: #e3f2fd;\n");
+            writer.write("          padding: 20px;\n");
+            writer.write("          border-radius: 10px;\n");
+            writer.write("          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);\n");    
+            writer.write("      }\n");
+            writer.write("      .table-responsive {\n");
+            writer.write("          max-height: 400px;\n");
+            writer.write("          overflow-y: auto;\n");
+            writer.write("      }\n");
+            writer.write("      .footer {\n");
+            writer.write("          text-align: center;\n");
+            writer.write("          margin-top: 20px;\n");
+            writer.write("          background-color: #e3f2fd;\n");
+            writer.write("          padding: 10px;\n");
+            writer.write("          border-radius: 10px;\n");
+            writer.write("          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);\n");
+            writer.write("      }\n");
+            writer.write("    </style>\n");
+            writer.write("</head>\n");
+            writer.write("<body>\n");
+            writer.write("  <div class=\"table-container\">\n");
+            writer.write("      <h2 class=\"text-center\">Tabla de Tokens</h2>\n");
+            writer.write("      <div class=\"table-responsive\">\n");
+            writer.write("          <table class=\"table table-bordered\">\n");
+            writer.write("              <thead class=\"table-primary\">\n");
+            writer.write("                  <tr>\n");
+            writer.write("                      <th>#</th>\n");
+            writer.write("                      <th>Tipo</th>\n");
+            writer.write("                      <th>Descripcion</th>\n");
+            writer.write("                      <th>Linea</th>\n");
+            writer.write("                      <th>Columna</th>\n");
+            writer.write("                  </tr>\n");
+            writer.write("              </thead>\n");
+            writer.write("              <tbody>\n");
+            //Recorrido for-each en la lista de tokens 
+            int contador =1;
+            for (Error error:NubeList.listErrores){
+            writer.write("                  <tr>\n");
+            writer.write("                      <td>"+contador+" </th>\n");
+            writer.write("                      <td>"+error.getType()+" </th>\n");
+            writer.write("                      <td>"+error.getDescription()+" </th>\n");
+            writer.write("                      <td>"+error.getRow()+" </th>\n");
+            writer.write("                      <td>"+error.getColumn()+" </th>\n");
+            writer.write("                  </tr>\n");
+            contador++;
+            }
+            writer.write("              </tbody>\n");
+            writer.write("          </table>\n");
+            writer.write("      </div>\n");
+            writer.write("  </div>\n");
+            writer.write("  <div class=\"footer\">\n");
+            writer.write("      Josué Antonio Cux Barrientos - 201700688 - Compiladores 1");
+            writer.write("  </div>\n");
+            //writer.write(contenido);
+            writer.write("\n</body>\n");
+            writer.write("</html>");
+
+            JOptionPane.showMessageDialog(null, "Archivo HTML actualizado correctamente.");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al escribir en el archivo HTML: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -232,6 +483,8 @@ public class MenuPrincipalInterfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
