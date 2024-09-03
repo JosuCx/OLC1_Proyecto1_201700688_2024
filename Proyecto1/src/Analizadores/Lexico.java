@@ -1,10 +1,10 @@
 /*
- * Ejemplo desarrollado por Erick Navarro
- * Blog: e-navarro.blogspot.com
- * Julio - 2018
  */
 package Analizadores;
 import java_cup.runtime.Symbol; 
+import Menu.NubeList;
+import Menu.Token;
+import Menu.Error;
 
 
 public class Lexico implements java_cup.runtime.Scanner {
@@ -232,26 +232,49 @@ public class Lexico implements java_cup.runtime.Scanner {
 		/* 14 */ YY_NO_ANCHOR,
 		/* 15 */ YY_NO_ANCHOR,
 		/* 16 */ YY_NO_ANCHOR,
-		/* 17 */ YY_NOT_ACCEPT,
+		/* 17 */ YY_NO_ANCHOR,
 		/* 18 */ YY_NO_ANCHOR,
-		/* 19 */ YY_NOT_ACCEPT,
-		/* 20 */ YY_NOT_ACCEPT,
-		/* 21 */ YY_NOT_ACCEPT,
-		/* 22 */ YY_NOT_ACCEPT,
-		/* 23 */ YY_NOT_ACCEPT
+		/* 19 */ YY_NO_ANCHOR,
+		/* 20 */ YY_NO_ANCHOR,
+		/* 21 */ YY_NO_ANCHOR,
+		/* 22 */ YY_NO_ANCHOR,
+		/* 23 */ YY_NO_ANCHOR,
+		/* 24 */ YY_NO_ANCHOR,
+		/* 25 */ YY_NO_ANCHOR,
+		/* 26 */ YY_NOT_ACCEPT,
+		/* 27 */ YY_NO_ANCHOR,
+		/* 28 */ YY_NO_ANCHOR,
+		/* 29 */ YY_NOT_ACCEPT,
+		/* 30 */ YY_NO_ANCHOR,
+		/* 31 */ YY_NOT_ACCEPT,
+		/* 32 */ YY_NO_ANCHOR,
+		/* 33 */ YY_NOT_ACCEPT,
+		/* 34 */ YY_NOT_ACCEPT,
+		/* 35 */ YY_NOT_ACCEPT,
+		/* 36 */ YY_NOT_ACCEPT,
+		/* 37 */ YY_NOT_ACCEPT,
+		/* 38 */ YY_NOT_ACCEPT,
+		/* 39 */ YY_NOT_ACCEPT,
+		/* 40 */ YY_NOT_ACCEPT,
+		/* 41 */ YY_NOT_ACCEPT,
+		/* 42 */ YY_NOT_ACCEPT
 	};
 	private int yy_cmap[] = unpackFromString(1,65538,
-"22:9,17,16,22:2,17,22:18,20,22:7,8,9,14,12,22,13,19,15,18:10,22,7,22:5,3,22" +
-":3,1,22:6,4,22:5,6,22:2,5,2,22:4,10,22,11,22:3,3,22:3,1,22:6,4,22:5,6,22:2," +
-"5,2,22:5,21,22:65411,0:2")[0];
+"16:9,31,30,16,31,32,16:18,35,15,16,13,16:2,21,16,23,24,28,27,20,18,34,29,33" +
+":10,16,22,14,16,17,16:2,8,12,1,12,6,12:4,4,12,10,12,3,2,5,12,7,12:2,11,9,12" +
+":4,25,16,26,16:3,8,12,1,12,6,12:4,4,12,10,12,3,2,5,12,7,12:2,11,9,12:4,16,3" +
+"6,16,19,16:65409,0:2")[0];
 
-	private int yy_rmap[] = unpackFromString(1,24,
-"0,1,2,1:10,3,4,5,1,6,1,5,7,8,9,10")[0];
+	private int yy_rmap[] = unpackFromString(1,43,
+"0,1,2,1,3,4,1:11,5:2,6,1,7,1,8,1:2,9,10,1,11,1,12,13,8,7,14,15,16,17,18,19," +
+"20,21")[0];
 
-	private int yy_nxt[][] = unpackFromString(11,23,
-"1,2,18:5,3,4,5,6,7,8,9,10,11,12,13,14,18,13,18:2,-1:25,17,-1:37,13,-1:2,13," +
-"-1:20,14,19,-1:21,15,-1,15:2,-1:4,20,-1:23,21,-1:23,22,-1:20,23,-1:25,16,-1" +
-":16");
+	private int yy_nxt[][] = unpackFromString(22,37,
+"1,2,27,30:3,32,30:6,3,4,28:3,5,6,7,8,9,10,11,12,13,14,15,16,17,18:2,19,28,1" +
+"8,28,-1:39,26,-1:49,33,-1:38,20,-1:49,18:3,-1:2,18,-1:34,19,34,-1:35,21,-1," +
+"21:2,-1,33:14,38,33:14,-1,33,-1,33:4,-1:3,35,-1:38,29,-1:37,36,-1:38,37,-1:" +
+"37,31,-1:31,22,-1:39,39,-1:39,40,-1:27,33:14,38,33,23,33:12,-1,33,-1,33:4,-" +
+"1:8,24,-1:39,41,-1:33,42,-1:35,25,-1:29");
 
 	public java_cup.runtime.Symbol next_token ()
 		throws java.io.IOException {
@@ -302,75 +325,124 @@ public class Lexico implements java_cup.runtime.Scanner {
 					case -2:
 						break;
 					case 2:
-						{
-    System.out.println("Este es un error lexico: "+yytext()+
-    ", en la linea: "+yyline+", en la columna: "+yychar);
-}
+						{NubeList.listTokens.add(new Token(yytext(),"Texto en Mayuscula",yyline,yychar));return new Symbol(sym.LETRA_MINISCULA,yyline,yychar,yytext());}
 					case -3:
 						break;
 					case 3:
-						{return new Symbol(sym.PTCOMA,yyline,yychar, yytext());}
+						{NubeList.listTokens.add(new Token(yytext(),"Comentario linea",yyline,yychar));return new Symbol(sym.COMENTARIO_LINEA,yyline,yychar,yytext());}
 					case -4:
 						break;
 					case 4:
-						{return new Symbol(sym.PARIZQ,yyline,yychar, yytext());}
-					case -5:
-						break;
-					case 5:
-						{return new Symbol(sym.PARDER,yyline,yychar, yytext());}
-					case -6:
-						break;
-					case 6:
-						{return new Symbol(sym.CORIZQ,yyline,yychar, yytext());}
-					case -7:
-						break;
-					case 7:
-						{return new Symbol(sym.CORDER,yyline,yychar, yytext());}
-					case -8:
-						break;
-					case 8:
-						{return new Symbol(sym.MAS,yyline,yychar, yytext());}
-					case -9:
-						break;
-					case 9:
-						{return new Symbol(sym.MENOS,yyline,yychar, yytext());}
-					case -10:
-						break;
-					case 10:
-						{return new Symbol(sym.POR,yyline,yychar, yytext());}
-					case -11:
-						break;
-					case 11:
-						{return new Symbol(sym.DIVIDIDO,yyline,yychar, yytext());}
-					case -12:
-						break;
-					case 12:
-						{yychar=1;}
-					case -13:
-						break;
-					case 13:
-						{}
-					case -14:
-						break;
-					case 14:
-						{return new Symbol(sym.ENTERO,yyline,yychar, yytext());}
-					case -15:
-						break;
-					case 15:
-						{return new Symbol(sym.DECIMAL,yyline,yychar, yytext());}
-					case -16:
-						break;
-					case 16:
-						{return new Symbol(sym.REVALUAR,yyline,yychar,
-                             yytext());}
-					case -17:
-						break;
-					case 18:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    NubeList.listErrores.add(new Error("Lexico",yytext(),yyline,yychar));
 }
+					case -5:
+						break;
+					case 5:
+						{NubeList.listTokens.add(new Token(yytext(),"Simbolo Menos",yyline,yychar));return new Symbol(sym.MENOS,yyline,yychar, yytext());}
+					case -6:
+						break;
+					case 6:
+						{NubeList.listTokens.add(new Token(yytext(),"Simbolo ~",yyline,yychar));return new Symbol(sym.RANGO,yyline,yychar,yytext());}
+					case -7:
+						break;
+					case 7:
+						{NubeList.listTokens.add(new Token(yytext(),"Coma",yyline,yychar));return new Symbol(sym.COMA,yyline,yychar,yytext());}
+					case -8:
+						break;
+					case 8:
+						{NubeList.listTokens.add(new Token(yytext(),"Simbolo & ",yyline,yychar));return new Symbol(sym.SIMBOLOY,yyline,yychar, yytext());}
+					case -9:
+						break;
+					case 9:
+						{NubeList.listTokens.add(new Token(yytext(),"Punto y Coma",yyline,yychar));return new Symbol(sym.PTCOMA,yyline,yychar, yytext());}
+					case -10:
+						break;
+					case 10:
+						{NubeList.listTokens.add(new Token(yytext(),"Parentesis Abierto",yyline,yychar));return new Symbol(sym.PARIZQ,yyline,yychar, yytext());}
+					case -11:
+						break;
+					case 11:
+						{NubeList.listTokens.add(new Token(yytext(),"Parentesis Cerrado",yyline,yychar));return new Symbol(sym.PARDER,yyline,yychar, yytext());}
+					case -12:
+						break;
+					case 12:
+						{NubeList.listTokens.add(new Token(yytext(),"Corchete Abierto",yyline,yychar));return new Symbol(sym.CORIZQ,yyline,yychar, yytext());}
+					case -13:
+						break;
+					case 13:
+						{NubeList.listTokens.add(new Token(yytext(),"Corchete Cerrado",yyline,yychar));return new Symbol(sym.CORDER,yyline,yychar, yytext());}
+					case -14:
+						break;
+					case 14:
+						{NubeList.listTokens.add(new Token(yytext(),"Simbolo Suma",yyline,yychar));return new Symbol(sym.MAS,yyline,yychar, yytext());}
+					case -15:
+						break;
+					case 15:
+						{NubeList.listTokens.add(new Token(yytext(),"Simbolo Por",yyline,yychar));return new Symbol(sym.POR,yyline,yychar, yytext());}
+					case -16:
+						break;
+					case 16:
+						{NubeList.listTokens.add(new Token(yytext(),"Simbolo Division",yyline,yychar));return new Symbol(sym.DIVIDIDO,yyline,yychar, yytext());}
+					case -17:
+						break;
+					case 17:
+						{yychar=1;}
 					case -18:
+						break;
+					case 18:
+						{ }
+					case -19:
+						break;
+					case 19:
+						{NubeList.listTokens.add(new Token(yytext(),"Digito",yyline,yychar));return new Symbol(sym.ENTERO,yyline,yychar, yytext());}
+					case -20:
+						break;
+					case 20:
+						{NubeList.listTokens.add(new Token(yytext(),"Flecha",yyline,yychar));return new Symbol(sym.FLECHA,yyline,yychar,yytext());}
+					case -21:
+						break;
+					case 21:
+						{NubeList.listTokens.add(new Token(yytext(),"Digito con punto",yyline,yychar));return new Symbol(sym.DECIMAL,yyline,yychar, yytext());}
+					case -22:
+						break;
+					case 22:
+						{NubeList.listTokens.add(new Token(yytext(),"Palabra Reservada CONJ",yyline,yychar)); return new Symbol(sym.CONJ, yyline,yychar,yytext());}
+					case -23:
+						break;
+					case 23:
+						{NubeList.listTokens.add(new Token(yytext(),"Comentario Multilinea",yyline,yychar));return new Symbol(sym.COMENTARIO_MULTILINEA,yyline,yychar,yytext());}
+					case -24:
+						break;
+					case 24:
+						{NubeList.listTokens.add(new Token(yytext(),"Palabra Reservada OPERA",yyline,yychar));return new Symbol(sym.OPERA,yyline,yychar,yytext());}
+					case -25:
+						break;
+					case 25:
+						{NubeList.listTokens.add(new Token(yytext(),"Palabra Reservada EVALUAR",yyline,yychar));return new Symbol(sym.EVALUAR,yyline,yychar,yytext());}
+					case -26:
+						break;
+					case 27:
+						{NubeList.listTokens.add(new Token(yytext(),"Texto en Mayuscula",yyline,yychar));return new Symbol(sym.LETRA_MINISCULA,yyline,yychar,yytext());}
+					case -27:
+						break;
+					case 28:
+						{
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yychar);
+    NubeList.listErrores.add(new Error("Lexico",yytext(),yyline,yychar));
+}
+					case -28:
+						break;
+					case 30:
+						{NubeList.listTokens.add(new Token(yytext(),"Texto en Mayuscula",yyline,yychar));return new Symbol(sym.LETRA_MINISCULA,yyline,yychar,yytext());}
+					case -29:
+						break;
+					case 32:
+						{NubeList.listTokens.add(new Token(yytext(),"Texto en Mayuscula",yyline,yychar));return new Symbol(sym.LETRA_MINISCULA,yyline,yychar,yytext());}
+					case -30:
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);

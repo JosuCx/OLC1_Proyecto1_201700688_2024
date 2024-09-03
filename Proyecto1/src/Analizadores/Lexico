@@ -1,12 +1,12 @@
 /*
- * Ejemplo desarrollado por Erick Navarro
- * Blog: e-navarro.blogspot.com
- * Julio - 2018
+
  */
 
 package Analizadores;
 import java_cup.runtime.Symbol; 
-
+import Menu.NubeList;
+import Menu.Token;
+import Menu.Error;
 %% 
 %class Lexico
 %public 
@@ -21,33 +21,44 @@ import java_cup.runtime.Symbol;
     yychar = 1; 
 %init} 
 
-BLANCOS=[ \r\t]+
+BLANCOS=[ \r\t\n\f]+
 D=[0-9]+
 DD=[0-9]+("."[  |0-9]+)?
 
 %%
 
-"Evaluar" {return new Symbol(sym.REVALUAR,yyline,yychar,
-                             yytext());} 
 
-";" {return new Symbol(sym.PTCOMA,yyline,yychar, yytext());} 
-"(" {return new Symbol(sym.PARIZQ,yyline,yychar, yytext());} 
-")" {return new Symbol(sym.PARDER,yyline,yychar, yytext());} 
-"[" {return new Symbol(sym.CORIZQ,yyline,yychar, yytext());} 
-"]" {return new Symbol(sym.CORDER,yyline,yychar, yytext());} 
+"CONJ" {NubeList.listTokens.add(new Token(yytext(),"Palabra Reservada CONJ",yyline,yychar)); return new Symbol(sym.CONJ, yyline,yychar,yytext());}
+"OPERA" {NubeList.listTokens.add(new Token(yytext(),"Palabra Reservada OPERA",yyline,yychar));return new Symbol(sym.OPERA,yyline,yychar,yytext());}
+"EVALUAR" {NubeList.listTokens.add(new Token(yytext(),"Palabra Reservada EVALUAR",yyline,yychar));return new Symbol(sym.EVALUAR,yyline,yychar,yytext());}
+[a-z] {NubeList.listTokens.add(new Token(yytext(),"Texto en Mayuscula",yyline,yychar));return new Symbol(sym.LETRA_MINISCULA,yyline,yychar,yytext());}
+[A-Z] {NubeList.listTokens.add(new Token(yytext(),"Texto en Miniscula",yyline,yychar));return new Symbol(sym.LETRA_MAYUSCULA,yyline,yychar,yytext());}
 
-"+" {return new Symbol(sym.MAS,yyline,yychar, yytext());} 
-"-" {return new Symbol(sym.MENOS,yyline,yychar, yytext());} 
-"*" {return new Symbol(sym.POR,yyline,yychar, yytext());} 
-"/" {return new Symbol(sym.DIVIDIDO,yyline,yychar, yytext());} 
+"#" {NubeList.listTokens.add(new Token(yytext(),"Comentario linea",yyline,yychar));return new Symbol(sym.COMENTARIO_LINEA,yyline,yychar,yytext());}
+"<!".*"!>" {NubeList.listTokens.add(new Token(yytext(),"Comentario Multilinea",yyline,yychar));return new Symbol(sym.COMENTARIO_MULTILINEA,yyline,yychar,yytext());}
+"->" {NubeList.listTokens.add(new Token(yytext(),"Flecha",yyline,yychar));return new Symbol(sym.FLECHA,yyline,yychar,yytext());}
+"~" {NubeList.listTokens.add(new Token(yytext(),"Simbolo ~",yyline,yychar));return new Symbol(sym.RANGO,yyline,yychar,yytext());}
+"," {NubeList.listTokens.add(new Token(yytext(),"Coma",yyline,yychar));return new Symbol(sym.COMA,yyline,yychar,yytext());}
+
+"&" {NubeList.listTokens.add(new Token(yytext(),"Simbolo & ",yyline,yychar));return new Symbol(sym.SIMBOLOY,yyline,yychar, yytext());} 
+";" {NubeList.listTokens.add(new Token(yytext(),"Punto y Coma",yyline,yychar));return new Symbol(sym.PTCOMA,yyline,yychar, yytext());} 
+"(" {NubeList.listTokens.add(new Token(yytext(),"Parentesis Abierto",yyline,yychar));return new Symbol(sym.PARIZQ,yyline,yychar, yytext());} 
+")" {NubeList.listTokens.add(new Token(yytext(),"Parentesis Cerrado",yyline,yychar));return new Symbol(sym.PARDER,yyline,yychar, yytext());} 
+"[" {NubeList.listTokens.add(new Token(yytext(),"Corchete Abierto",yyline,yychar));return new Symbol(sym.CORIZQ,yyline,yychar, yytext());} 
+"]" {NubeList.listTokens.add(new Token(yytext(),"Corchete Cerrado",yyline,yychar));return new Symbol(sym.CORDER,yyline,yychar, yytext());} 
+"+" {NubeList.listTokens.add(new Token(yytext(),"Simbolo Suma",yyline,yychar));return new Symbol(sym.MAS,yyline,yychar, yytext());} 
+"-" {NubeList.listTokens.add(new Token(yytext(),"Simbolo Menos",yyline,yychar));return new Symbol(sym.MENOS,yyline,yychar, yytext());} 
+"*" {NubeList.listTokens.add(new Token(yytext(),"Simbolo Por",yyline,yychar));return new Symbol(sym.POR,yyline,yychar, yytext());} 
+"/" {NubeList.listTokens.add(new Token(yytext(),"Simbolo Division",yyline,yychar));return new Symbol(sym.DIVIDIDO,yyline,yychar, yytext());} 
 
 \n {yychar=1;}
 
-{BLANCOS} {} 
-{D} {return new Symbol(sym.ENTERO,yyline,yychar, yytext());} 
-{DD} {return new Symbol(sym.DECIMAL,yyline,yychar, yytext());} 
+{BLANCOS} { } 
+{D} {NubeList.listTokens.add(new Token(yytext(),"Digito",yyline,yychar));return new Symbol(sym.ENTERO,yyline,yychar, yytext());} 
+{DD} {NubeList.listTokens.add(new Token(yytext(),"Digito con punto",yyline,yychar));return new Symbol(sym.DECIMAL,yyline,yychar, yytext());} 
 
 . {
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    NubeList.listErrores.add(new Error("Lexico",yytext(),yyline,yychar));
 }
