@@ -1,70 +1,62 @@
-/*
- * Ejemplo desarrollado por Erick Navarro
- * Blog: e-navarro.blogspot.com
- * Julio - 2018
- */
-
 package Analizadores; 
 import java_cup.runtime.*;
+import Menu.NubeList;
+import Menu.Token;
+import Menu.Error;
 
 parser code 
 {:
-    /**
-     * Método al que se llama automáticamente ante algún error sintactico.
-     **/ 
     public void syntax_error(Symbol s){ 
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
-        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
-    } 
-
-    /**
-     * Método al que se llama automáticamente ante algún error sintáctico 
-     * en el que ya no es posible una recuperación de errores.
-     **/ 
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+".");
+        NubeList.listErrores.add(new Error("Sintactico", (String)s.value,s.left,s.right));
+    }  
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
         System.out.println("Error síntactico irrecuperable en la Línea " + 
         (s.left)+ " Columna "+s.right+". Componente " + s.value + 
         " no reconocido."); 
+        NubeList.listErrores.add(new Error("Sintactico",(String) s.value,s.left,s.right));
     }  
 :} 
 
-terminal String PTCOMA,PARIZQ,PARDER,CORIZQ,CORDER;
-terminal String MAS,MENOS,POR,DIVIDIDO;
-terminal String ENTERO;
-terminal String DECIMAL;
-terminal String UMENOS;
-terminal String REVALUAR;
+terminal String CONJ, OPERA, EVALUAR;
+terminal String COMENTARIO_LINEA, COMENTARIO_MULTILINEA;
+terminal String FLECHA, RANGO, COMA, PTCOMA, PARIZQ, PARDER, CORIZQ, CORDER;
+terminal String MAS, MENOS, POR, DIVIDIDO;
+terminal String ENTERO, DECIMAL, UMENOS, REVALUAR;
+terminal String LETRA_MINUSCULA, LETRA_MAYUSCULA, SIMBOLOY;
 
-non terminal ini;
-non terminal instrucciones;
-non terminal instruccion;
+non terminal Object ini;
+non terminal Object instrucciones;
+non terminal Object instruccion;
 non terminal Double expresion;
 
-precedence left MAS,MENOS;
-precedence left POR,DIVIDIDO;
+precedence left MAS, MENOS;
+precedence left POR, DIVIDIDO;
 precedence right UMENOS; 
 
-start with ini; 
+start with ini;
 
-ini::=instrucciones;
+ini ::= instrucciones;
 
 instrucciones ::= 
    instruccion instrucciones
  | instruccion
  | error instrucciones
-; 
-
-instruccion ::= 
-   REVALUAR CORIZQ expresion:a CORDER PTCOMA{:System.out.println("El valor de la expresión es: "+a);:}
 ;
 
-expresion  ::= 
-    MENOS expresion:a                      {:RESULT=a*-1;:}%prec UMENOS     
- |  expresion:a MAS        expresion:b     {:RESULT=a+b;:}
- |  expresion:a MENOS      expresion:b     {:RESULT=a-b;:}
- |  expresion:a POR        expresion:b     {:RESULT=a*b;:}
- |  expresion:a DIVIDIDO   expresion:b     {:RESULT=a/b;:}
- |  ENTERO:a                               {:RESULT=new Double(a);:}
- |  DECIMAL:a                              {:RESULT=new Double(a);:}
- |  PARIZQ expresion:a PARDER              {:RESULT=a;:}
+instruccion ::= 
+   REVALUAR CORIZQ expresion:a CORDER PTCOMA
+   {: System.out.println("El valor de la expresión es: " + a); :}
+;
+
+expresion ::= 
+    MENOS expresion:a                      {: RESULT = a * -1; :} %prec UMENOS     
+ |  expresion:a MAS        expresion:b     {: RESULT = a + b; :}
+ |  expresion:a MENOS      expresion:b     {: RESULT = a - b; :}
+ |  expresion:a POR        expresion:b     {: RESULT = a * b; :}
+ |  expresion:a DIVIDIDO   expresion:b     {: RESULT = a / b; :}
+ |  ENTERO:a                               {: RESULT = new Double(a); :}
+ |  DECIMAL:a                              {: RESULT = new Double(a); :}
+ |  PARIZQ expresion:a PARDER              {: RESULT = a; :}
 ;

@@ -8,24 +8,43 @@ package Analizadores;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int DECIMAL = 12;
-  public static final int MENOS = 8;
-  public static final int CORIZQ = 5;
-  public static final int UMENOS = 13;
-  public static final int ENTERO = 11;
-  public static final int POR = 9;
-  public static final int CORDER = 6;
-  public static final int PTCOMA = 2;
-  public static final int DIVIDIDO = 10;
+  public static final int MENOS = 16;
+  public static final int DECIMAL = 20;
+  public static final int COMENTARIO_LINEA = 5;
+  public static final int DIVIDIDO = 18;
+  public static final int REVALUAR = 22;
+  public static final int PARIZQ = 11;
+  public static final int FLECHA = 7;
+  public static final int PARDER = 12;
+  public static final int UMENOS = 21;
+  public static final int OPERA = 3;
+  public static final int LETRA_MINUSCULA = 23;
+  public static final int POR = 17;
+  public static final int COMA = 9;
+  public static final int SIMBOLOY = 25;
   public static final int EOF = 0;
-  public static final int MAS = 7;
-  public static final int PARIZQ = 3;
+  public static final int COMENTARIO_MULTILINEA = 6;
+  public static final int CONJ = 2;
+  public static final int LETRA_MAYUSCULA = 24;
   public static final int error = 1;
-  public static final int PARDER = 4;
-  public static final int REVALUAR = 14;
+  public static final int CORIZQ = 13;
+  public static final int EVALUAR = 4;
+  public static final int ENTERO = 19;
+  public static final int CORDER = 14;
+  public static final int RANGO = 8;
+  public static final int MAS = 15;
+  public static final int PTCOMA = 10;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
+  "CONJ",
+  "OPERA",
+  "EVALUAR",
+  "COMENTARIO_LINEA",
+  "COMENTARIO_MULTILINEA",
+  "FLECHA",
+  "RANGO",
+  "COMA",
   "PTCOMA",
   "PARIZQ",
   "PARDER",
@@ -38,7 +57,10 @@ public class sym {
   "ENTERO",
   "DECIMAL",
   "UMENOS",
-  "REVALUAR"
+  "REVALUAR",
+  "LETRA_MINUSCULA",
+  "LETRA_MAYUSCULA",
+  "SIMBOLOY"
   };
 }
 
